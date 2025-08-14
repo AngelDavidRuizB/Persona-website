@@ -78,39 +78,27 @@ function updateActiveNavLink() {
 function initializeScrollAnimations() {
     const observerOptions = {
         threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
+        rootMargin: '0px 0px -50px 0px'
     };
-    
-    const observer = new IntersectionObserver(function(entries) {
+
+    const revealElements = document.querySelectorAll('.reveal');
+
+    const observer = new IntersectionObserver(function(entries, observer) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                entry.target.classList.add('visible');
                 
                 // Trigger skills animation if it's the skills section
                 if (entry.target.id === 'skills') {
                     animateSkills();
                 }
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
-    
-    // Observe all sections
-    const sections = document.querySelectorAll('section');
-    sections.forEach(section => {
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(50px)';
-        section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-        observer.observe(section);
-    });
-    
-    // Observe cards for stagger animation
-    const cards = document.querySelectorAll('.card, .education-item, .achievement-item');
-    cards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-        observer.observe(card);
+
+    revealElements.forEach(el => {
+        observer.observe(el);
     });
 }
 
@@ -121,8 +109,8 @@ function initializeSkillsAnimation() {
     skillItems.forEach(item => {
         const progressBar = item.querySelector('.progress-bar');
         if (progressBar) {
-            const width = progressBar.style.width;
-            progressBar.style.setProperty('--progress-width', width);
+            const width = progressBar.getAttribute('aria-valuenow');
+            progressBar.style.setProperty('--progress-width', `${width}%`);
             progressBar.style.width = '0%';
         }
     });
@@ -294,11 +282,12 @@ function showNotification(message) {
 // Parallax effect for hero section
 window.addEventListener('scroll', function() {
     const scrolled = window.pageYOffset;
-    const heroSection = document.querySelector('.hero-section');
+    const heroSection = document.querySelector('.hero-section .container');
     
-    if (heroSection && scrolled <= heroSection.offsetHeight) {
-        const rate = scrolled * -0.5;
+    if (heroSection && scrolled <= window.innerHeight) {
+        const rate = scrolled * 0.3;
         heroSection.style.transform = `translateY(${rate}px)`;
+        heroSection.style.opacity = 1 - (scrolled / (window.innerHeight / 1.5));
     }
 });
 
