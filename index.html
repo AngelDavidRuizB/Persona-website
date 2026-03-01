@@ -1,317 +1,881 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Angel David Ruiz Barbosa - Portfolio</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="styles.css" rel="stylesheet">
+    <title>Angel David Ruiz Barbosa — Systems Engineer & AI Enthusiast</title>
+    <meta name="description" content="Portfolio of Angel David Ruiz Barbosa — Systems Engineering student at Universidad Nacional de Colombia. Passionate about AI, Data Science, and Python development.">
+    <meta name="author" content="Angel David Ruiz Barbosa">
+
+    <!-- Open Graph / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Angel David Ruiz Barbosa — Systems Engineer & AI Enthusiast">
+    <meta property="og:description" content="Systems Engineering student at UNAL. Building intelligent solutions with Python, TensorFlow & modern web technologies.">
+    <meta property="og:image" content="images/angel.avif">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Angel David Ruiz Barbosa — Systems Engineer & AI Enthusiast">
+    <meta name="twitter:description" content="Systems Engineering student at UNAL. Building intelligent solutions with Python, TensorFlow & modern web technologies.">
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Devicons for tech stack -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Angel David Ruiz Barbosa",
+        "url": "https://angeldavidruizb.github.io/Persona-website/",
+        "jobTitle": "Systems Engineering Student",
+        "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "Universidad Nacional de Colombia"
+        },
+        "knowsAbout": ["Python", "JavaScript", "TypeScript", "TensorFlow", "Data Science", "Artificial Intelligence"],
+        "sameAs": [
+            "https://github.com/AngelDavidRuizB",
+            "https://www.linkedin.com/in/angel-ruiz-96314a192/"
+        ]
+    }
+    </script>
 </head>
-<body>
-    <!-- Header Section -->
-    <header class="header-section">
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-            <div class="container">
-                <a class="navbar-brand" href="#home">Angel David Ruiz</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
+<body data-theme="dark">
+    <!-- Custom Cursor (desktop only, hidden on touch) -->
+    <div class="cursor" id="cursor" aria-hidden="true"></div>
+    <div class="cursor-follower" id="cursorFollower" aria-hidden="true"></div>
+
+    <!-- Skip to content for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav__container">
+            <a href="#hero" class="nav__logo" aria-label="Home">
+                <span class="nav__logo-text">ADR</span>
+                <span class="nav__logo-dot"></span>
+            </a>
+
+            <div class="nav__links" id="navLinks">
+                <a href="#about" class="nav__link">About</a>
+                <a href="#experience" class="nav__link">Experience</a>
+                <a href="#projects" class="nav__link">Projects</a>
+                <a href="#skills" class="nav__link">Skills</a>
+                <a href="#education" class="nav__link">Education</a>
+                <a href="#resume" class="nav__link">Resume</a>
+                <a href="#contact" class="nav__link">Contact</a>
+            </div>
+
+            <div class="nav__actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+                    <i class="fas fa-moon" id="themeIcon"></i>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="#home">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#about">Sobre mí</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#education">Educación</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#skills">Habilidades</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#languages">Idiomas</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#achievements">Reconocimientos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">Contacto</a></li>
-                    </ul>
+                <button class="nav__hamburger" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Nav Overlay -->
+    <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+        <div class="mobile-nav__links">
+            <a href="#about" class="mobile-nav__link">About</a>
+            <a href="#experience" class="mobile-nav__link">Experience</a>
+            <a href="#projects" class="mobile-nav__link">Projects</a>
+            <a href="#skills" class="mobile-nav__link">Skills</a>
+            <a href="#education" class="mobile-nav__link">Education</a>
+            <a href="#resume" class="mobile-nav__link">Resume</a>
+            <a href="#contact" class="mobile-nav__link">Contact</a>
+        </div>
+    </div>
+
+    <main id="main-content">
+
+        <!-- ==================== HERO ==================== -->
+        <section class="hero" id="hero">
+            <!-- Animated Background -->
+            <div class="hero__bg" aria-hidden="true">
+                <div class="hero__blob hero__blob--1"></div>
+                <div class="hero__blob hero__blob--2"></div>
+                <div class="hero__blob hero__blob--3"></div>
+                <div class="hero__grid-pattern"></div>
+            </div>
+
+            <div class="hero__container">
+                <div class="hero__content">
+                    <p class="hero__greeting reveal-up">Hi, my name is</p>
+                    <h1 class="hero__name reveal-up">Angel David<br>Ruiz Barbosa.</h1>
+                    <h2 class="hero__tagline reveal-up">
+                        <span class="typing-wrapper" id="typingWrapper">
+                            <span class="typing-text" id="typingText"></span>
+                            <span class="typing-cursor">|</span>
+                        </span>
+                    </h2>
+                    <p class="hero__description reveal-up">
+                        Systems & Computing Engineering student at the 
+                        <span class="highlight">National University of Colombia</span>, 
+                        passionate about <span class="highlight">AI</span>, 
+                        <span class="highlight">Data Science</span>, and creating 
+                        impactful software solutions.
+                    </p>
+
+                    <div class="hero__stats reveal-up">
+                        <div class="hero__stat">
+                            <span class="hero__stat-number" data-target="10">0</span>
+                            <span class="hero__stat-label">Repositories</span>
+                        </div>
+                        <div class="hero__stat">
+                            <span class="hero__stat-number" data-target="112">0</span>
+                            <span class="hero__stat-label">Contributions</span>
+                        </div>
+                        <div class="hero__stat">
+                            <span class="hero__stat-number" data-target="6">0</span>
+                            <span class="hero__stat-label">Technologies</span>
+                        </div>
+                    </div>
+
+                    <div class="hero__cta reveal-up">
+                        <a href="#projects" class="btn btn--primary btn--glow magnetic-btn">
+                            View My Work
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="#contact" class="btn btn--outline magnetic-btn">Get In Touch</a>
+                        <a href="Angel_David_Ruiz_CV.pdf" download class="btn btn--outline magnetic-btn" aria-label="Download CV">
+                            <i class="fas fa-download"></i> Download CV
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero__visual reveal-up">
+                    <div class="hero__image-wrapper">
+                        <img src="images/angel.avif" 
+                             alt="Angel David Ruiz Barbosa - Systems Engineering Student" 
+                             class="hero__image"
+                             width="400" 
+                             height="400">
+                        <div class="hero__image-ring"></div>
+                        <div class="hero__image-glow"></div>
+                    </div>
                 </div>
             </div>
-        </nav>
 
-        <div class="hero-section" id="home">
-            <div class="container">
-                <div class="row align-items-center min-vh-100">
-                    <div class="col-lg-6">
-                        <div class="hero-content">
-                            <h1 class="display-4 fw-bold text-white mb-3">Angel David Ruiz Barbosa</h1>
-                            <p class="lead text-white-50 mb-4">Estudiante de Ingeniería de Sistemas e Informática</p>
-                            <p class="text-white-50 mb-4">Universidad Nacional de Colombia</p>
-                            <div class="hero-buttons">
-                                <a href="#contact" class="btn btn-primary btn-lg me-3">Contáctame</a>
-                                <a href="#" class="btn btn-outline-light btn-lg" id="downloadCV">
-                                    <i class="fas fa-download me-2"></i>Descargar CV
+            <!-- Social sidebar -->
+            <div class="hero__socials">
+                <a href="https://github.com/AngelDavidRuizB" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/angel-ruiz-96314a192/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="mailto:angeldavidruiz2@gmail.com" aria-label="Send Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <div class="hero__socials-line"></div>
+            </div>
+        </section>
+
+        <!-- ==================== ABOUT ==================== -->
+        <section class="section about" id="about">
+            <div class="section__container">
+                <h2 class="section__title reveal-up">
+                    <span class="section__number">01.</span> About Me
+                </h2>
+                <div class="about__content">
+                    <div class="about__text reveal-up">
+                        <p>
+                            Hello! I'm Angel, a Systems and Computing Engineering student at the 
+                            <a href="https://unal.edu.co" target="_blank" rel="noopener noreferrer">National University of Colombia</a> 
+                            — one of Latin America's top public universities. My passion lies at the 
+                            intersection of <strong>Artificial Intelligence</strong>, <strong>Data Science</strong>, 
+                            and <strong>software engineering</strong>.
+                        </p>
+                        <p>
+                            I'm particularly interested in machine learning, neural networks, and building 
+                            data-driven applications that solve real-world problems. I enjoy working with 
+                            Python and its scientific ecosystem (TensorFlow, Keras, Pandas, NumPy), 
+                            as well as modern web frameworks like Angular and Spring.
+                        </p>
+                        <p>
+                            Outside of coding, I'm always exploring new technologies, contributing 
+                            to open-source projects, and looking for opportunities to grow as an 
+                            engineer. I'm currently <strong>open to internship and junior positions</strong> 
+                            in Data Science, AI, or Software Engineering.
+                        </p>
+
+                        <div class="about__languages">
+                            <h4>Languages</h4>
+                            <div class="about__language-list">
+                                <span class="about__language">
+                                    <i class="fas fa-circle"></i> Spanish <em>(Native)</em>
+                                </span>
+                                <span class="about__language">
+                                    <i class="fas fa-circle"></i> English <em>(B2 — Cambridge Linguaskill)</em>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about__image-wrapper reveal-up">
+                        <div class="about__image-frame">
+                            <img src="images/angel.avif" 
+                                 alt="Angel David Ruiz Barbosa" 
+                                 class="about__image"
+                                 width="300"
+                                 height="300"
+                                 loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== EXPERIENCE ==================== -->
+        <section class="section section--alt experience" id="experience">
+            <div class="section__container">
+                <h2 class="section__title reveal-up">
+                    <span class="section__number">02.</span> Experience
+                </h2>
+                <div class="timeline">
+
+                    <!-- Timeline Item 1 -->
+                    <div class="timeline__item reveal-up">
+                        <div class="timeline__marker">
+                            <div class="timeline__marker-dot"></div>
+                        </div>
+                        <div class="timeline__content">
+                            <span class="timeline__date">Jan 2025 — Present</span>
+                            <h3 class="timeline__title">
+                                Software Development Intern
+                                <span class="timeline__company">
+                                    @ <a href="#" target="_blank" rel="noopener noreferrer">Your Company</a>
+                                </span>
+                            </h3>
+                            <ul class="timeline__list">
+                                <li>Describe your main responsibilities and achievements here</li>
+                                <li>Mention specific technologies, frameworks, or tools you used</li>
+                                <li>Quantify your impact where possible (e.g., "Improved performance by 30%")</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 2 -->
+                    <div class="timeline__item reveal-up">
+                        <div class="timeline__marker">
+                            <div class="timeline__marker-dot"></div>
+                        </div>
+                        <div class="timeline__content">
+                            <span class="timeline__date">2024</span>
+                            <h3 class="timeline__title">
+                                Badge Application Developer
+                                <span class="timeline__company">
+                                    @ <a href="https://github.com/AngelDavidRuizB/Aplicativo-de-Insignias" target="_blank" rel="noopener noreferrer">UIFCE — Universidad Nacional</a>
+                                </span>
+                            </h3>
+                            <ul class="timeline__list">
+                                <li>Developed a badge management application for courses taught by UIFCE using <strong>TypeScript</strong> and modern web technologies</li>
+                                <li>Implemented credential and badge systems for student recognition across multiple courses</li>
+                                <li>Collaborated with the university's continuing education department to deliver a production-ready tool</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== PROJECTS ==================== -->
+        <section class="section projects" id="projects">
+            <div class="section__container">
+                <h2 class="section__title reveal-up">
+                    <span class="section__number">03.</span> Projects
+                </h2>
+                <div class="projects__grid">
+
+                    <!-- Project 1: Aplicativo de Insignias -->
+                    <article class="project-card reveal-up" data-tilt>
+                        <div class="project-card__accent project-card__accent--cyan"></div>
+                        <div class="project-card__glow"></div>
+                        <div class="project-card__header">
+                            <div class="project-card__icon">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div class="project-card__links">
+                                <a href="https://github.com/AngelDavidRuizB/Aplicativo-de-Insignias" target="_blank" rel="noopener noreferrer" aria-label="View source code on GitHub">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <h3 class="project-card__title">
+                            <a href="https://github.com/AngelDavidRuizB/Aplicativo-de-Insignias" target="_blank" rel="noopener noreferrer">
+                                Badge Management App
+                            </a>
+                        </h3>
+                        <p class="project-card__description">
+                            A comprehensive badge and credential management application built for UIFCE (Universidad Nacional). 
+                            Manages digital badges for courses and certifications offered by the continuing education department.
+                        </p>
+                        <div class="project-card__tags">
+                            <span>TypeScript</span>
+                            <span>Web App</span>
+                            <span>UIFCE</span>
+                        </div>
+                    </article>
+
+                    <!-- Project 2: To-Do App -->
+                    <article class="project-card reveal-up" data-tilt>
+                        <div class="project-card__accent project-card__accent--green"></div>
+                        <div class="project-card__glow"></div>
+                        <div class="project-card__header">
+                            <div class="project-card__icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="project-card__links">
+                                <a href="https://github.com/AngelDavidRuizB/To-Do-App" target="_blank" rel="noopener noreferrer" aria-label="View source code on GitHub">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <h3 class="project-card__title">
+                            <a href="https://github.com/AngelDavidRuizB/To-Do-App" target="_blank" rel="noopener noreferrer">
+                                To-Do App
+                            </a>
+                        </h3>
+                        <p class="project-card__description">
+                            A task management application built with React, allowing students to organize and categorize 
+                            their academic tasks with an intuitive interface. Features task filtering, categories, and priority levels.
+                        </p>
+                        <div class="project-card__tags">
+                            <span>JavaScript</span>
+                            <span>React</span>
+                            <span>CSS</span>
+                        </div>
+                    </article>
+
+                    <!-- Project 3: Prueba Técnica -->
+                    <article class="project-card reveal-up" data-tilt>
+                        <div class="project-card__accent project-card__accent--purple"></div>
+                        <div class="project-card__glow"></div>
+                        <div class="project-card__header">
+                            <div class="project-card__icon">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <div class="project-card__links">
+                                <a href="https://github.com/AngelDavidRuizB/Prueba_t-cnica_Convocatoria-CS1529_Angel-David-Ruiz-Barbosa" target="_blank" rel="noopener noreferrer" aria-label="View source code on GitHub">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <h3 class="project-card__title">
+                            <a href="https://github.com/AngelDavidRuizB/Prueba_t-cnica_Convocatoria-CS1529_Angel-David-Ruiz-Barbosa" target="_blank" rel="noopener noreferrer">
+                                Technical Assessment CS1529
+                            </a>
+                        </h3>
+                        <p class="project-card__description">
+                            Technical assessment for a software engineering position. Demonstrates problem-solving skills, 
+                            clean code practices, and ability to deliver production-quality solutions under time constraints.
+                        </p>
+                        <div class="project-card__tags">
+                            <span>JavaScript</span>
+                            <span>Problem Solving</span>
+                        </div>
+                    </article>
+
+                    <!-- Project 4: Personal Website -->
+                    <article class="project-card reveal-up" data-tilt>
+                        <div class="project-card__accent project-card__accent--orange"></div>
+                        <div class="project-card__glow"></div>
+                        <div class="project-card__header">
+                            <div class="project-card__icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div class="project-card__links">
+                                <a href="https://github.com/AngelDavidRuizB/Persona-website" target="_blank" rel="noopener noreferrer" aria-label="View source code on GitHub">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="https://angeldavidruizb.github.io/Persona-website/" target="_blank" rel="noopener noreferrer" aria-label="View live demo">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <h3 class="project-card__title">
+                            <a href="https://angeldavidruizb.github.io/Persona-website/" target="_blank" rel="noopener noreferrer">
+                                Personal Portfolio Website
+                            </a>
+                        </h3>
+                        <p class="project-card__description">
+                            This very website! A modern, responsive portfolio built from scratch with vanilla HTML, CSS, 
+                            and JavaScript. Features dark/light mode, scroll animations, and a clean design optimized for recruiters.
+                        </p>
+                        <div class="project-card__tags">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                        </div>
+                    </article>
+
+                </div>
+
+                <div class="projects__more reveal-up">
+                    <a href="https://github.com/AngelDavidRuizB?tab=repositories" target="_blank" rel="noopener noreferrer" class="btn btn--outline magnetic-btn">
+                        View All on GitHub <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SKILLS ==================== -->
+        <section class="section section--alt skills" id="skills">
+            <div class="section__container">
+                <h2 class="section__title reveal-up">
+                    <span class="section__number">04.</span> Skills & Tools
+                </h2>
+                <div class="skills__layout">
+
+                    <!-- Left: Core Technologies with progress bars -->
+                    <div class="skills__bars-column">
+                        <div class="skills__category reveal-up">
+                            <h3 class="skills__category-title">
+                                <i class="fas fa-code"></i> Core Technologies
+                            </h3>
+                            <div class="skills__bar-list">
+                                <div class="skill-bar-item" data-level="90">
+                                    <div class="skill-bar-item__header">
+                                        <span class="skill-bar-item__name"><i class="devicon-python-plain"></i> Python</span>
+                                        <span class="skill-bar-item__percent">90%</span>
+                                    </div>
+                                    <div class="skill-bar"><div class="skill-bar__fill"></div></div>
+                                </div>
+                                <div class="skill-bar-item" data-level="85">
+                                    <div class="skill-bar-item__header">
+                                        <span class="skill-bar-item__name"><i class="devicon-javascript-plain"></i> JavaScript</span>
+                                        <span class="skill-bar-item__percent">85%</span>
+                                    </div>
+                                    <div class="skill-bar"><div class="skill-bar__fill"></div></div>
+                                </div>
+                                <div class="skill-bar-item" data-level="75">
+                                    <div class="skill-bar-item__header">
+                                        <span class="skill-bar-item__name"><i class="devicon-typescript-plain"></i> TypeScript</span>
+                                        <span class="skill-bar-item__percent">75%</span>
+                                    </div>
+                                    <div class="skill-bar"><div class="skill-bar__fill"></div></div>
+                                </div>
+                                <div class="skill-bar-item" data-level="70">
+                                    <div class="skill-bar-item__header">
+                                        <span class="skill-bar-item__name"><i class="devicon-java-plain"></i> Java</span>
+                                        <span class="skill-bar-item__percent">70%</span>
+                                    </div>
+                                    <div class="skill-bar"><div class="skill-bar__fill"></div></div>
+                                </div>
+                                <div class="skill-bar-item" data-level="65">
+                                    <div class="skill-bar-item__header">
+                                        <span class="skill-bar-item__name"><i class="fas fa-database"></i> SQL</span>
+                                        <span class="skill-bar-item__percent">65%</span>
+                                    </div>
+                                    <div class="skill-bar"><div class="skill-bar__fill"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skills__category reveal-up">
+                            <h3 class="skills__category-title">
+                                <i class="fas fa-brain"></i> AI / ML & Data
+                            </h3>
+                            <div class="skills__bar-list">
+                                <div class="skill-bar-item" data-level="85">
+                                    <div class="skill-bar-item__header">
+                                        <span class="skill-bar-item__name"><i class="devicon-tensorflow-original"></i> TensorFlow</span>
+                                        <span class="skill-bar-item__percent">85%</span>
+                                    </div>
+                                    <div class="skill-bar"><div class="skill-bar__fill"></div></div>
+                                </div>
+                                <div class="skill-bar-item" data-level="85">
+                                    <div class="skill-bar-item__header">
+                                        <span class="skill-bar-item__name"><i class="devicon-keras-plain"></i> Keras</span>
+                                        <span class="skill-bar-item__percent">85%</span>
+                                    </div>
+                                    <div class="skill-bar"><div class="skill-bar__fill"></div></div>
+                                </div>
+                                <div class="skill-bar-item" data-level="80">
+                                    <div class="skill-bar-item__header">
+                                        <span class="skill-bar-item__name"><i class="devicon-pandas-original"></i> Pandas</span>
+                                        <span class="skill-bar-item__percent">80%</span>
+                                    </div>
+                                    <div class="skill-bar"><div class="skill-bar__fill"></div></div>
+                                </div>
+                                <div class="skill-bar-item" data-level="80">
+                                    <div class="skill-bar-item__header">
+                                        <span class="skill-bar-item__name"><i class="devicon-numpy-original"></i> NumPy</span>
+                                        <span class="skill-bar-item__percent">80%</span>
+                                    </div>
+                                    <div class="skill-bar"><div class="skill-bar__fill"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Frameworks + Tools + Soft Skills -->
+                    <div class="skills__chips-column">
+                        <div class="skills__category reveal-up">
+                            <h3 class="skills__category-title">
+                                <i class="fas fa-layer-group"></i> Frameworks
+                            </h3>
+                            <div class="skills__items">
+                                <div class="skill-chip">
+                                    <i class="devicon-angularjs-plain"></i>
+                                    <span>Angular</span>
+                                </div>
+                                <div class="skill-chip">
+                                    <i class="devicon-spring-plain"></i>
+                                    <span>Spring</span>
+                                </div>
+                                <div class="skill-chip">
+                                    <i class="devicon-bootstrap-plain"></i>
+                                    <span>Bootstrap</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skills__category reveal-up">
+                            <h3 class="skills__category-title">
+                                <i class="fas fa-tools"></i> Tools & Platforms
+                            </h3>
+                            <div class="skills__items">
+                                <div class="skill-chip">
+                                    <i class="devicon-git-plain"></i>
+                                    <span>Git</span>
+                                </div>
+                                <div class="skill-chip">
+                                    <i class="devicon-github-original"></i>
+                                    <span>GitHub</span>
+                                </div>
+                                <div class="skill-chip">
+                                    <i class="devicon-jupyter-plain"></i>
+                                    <span>Jupyter</span>
+                                </div>
+                                <div class="skill-chip">
+                                    <i class="devicon-vscode-plain"></i>
+                                    <span>VS Code</span>
+                                </div>
+                                <div class="skill-chip">
+                                    <i class="devicon-firebase-plain"></i>
+                                    <span>Firebase</span>
+                                </div>
+                                <div class="skill-chip">
+                                    <i class="devicon-postman-plain"></i>
+                                    <span>Postman</span>
+                                </div>
+                                <div class="skill-chip">
+                                    <i class="devicon-googlecloud-plain"></i>
+                                    <span>Colab</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skills__category reveal-up">
+                            <h3 class="skills__category-title">
+                                <i class="fas fa-users"></i> Soft Skills
+                            </h3>
+                            <div class="skills__items">
+                                <div class="skill-chip skill-chip--soft">
+                                    <span>Problem Solving</span>
+                                </div>
+                                <div class="skill-chip skill-chip--soft">
+                                    <span>Teamwork</span>
+                                </div>
+                                <div class="skill-chip skill-chip--soft">
+                                    <span>Communication</span>
+                                </div>
+                                <div class="skill-chip skill-chip--soft">
+                                    <span>System Design</span>
+                                </div>
+                                <div class="skill-chip skill-chip--soft">
+                                    <span>Adaptability</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== EDUCATION ==================== -->
+        <section class="section education" id="education">
+            <div class="section__container">
+                <h2 class="section__title reveal-up">
+                    <span class="section__number">05.</span> Education & Certifications
+                </h2>
+                <div class="education__content">
+
+                    <!-- Main Education — Timeline -->
+                    <div class="education__main">
+                        <div class="timeline timeline--edu">
+                            <div class="timeline__item reveal-up">
+                                <div class="timeline__marker">
+                                    <div class="timeline__marker-dot timeline__marker-dot--active"></div>
+                                </div>
+                                <div class="timeline__content">
+                                    <span class="timeline__date">2023 — Present</span>
+                                    <h3 class="timeline__title">
+                                        B.Sc. Systems and Computing Engineering
+                                    </h3>
+                                    <p class="timeline__subtitle">Universidad Nacional de Colombia</p>
+                                    <p class="timeline__detail">Bogotá, Colombia — One of the top public universities in Latin America</p>
+                                </div>
+                            </div>
+                            <div class="timeline__item reveal-up">
+                                <div class="timeline__marker">
+                                    <div class="timeline__marker-dot"></div>
+                                </div>
+                                <div class="timeline__content">
+                                    <span class="timeline__date">Completed</span>
+                                    <h3 class="timeline__title">
+                                        High School Diploma
+                                    </h3>
+                                    <p class="timeline__subtitle">Liceo Campo David</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Certifications -->
+                    <div class="education__certs">
+                        <h3 class="education__subtitle reveal-up">Certifications & Achievements</h3>
+
+                        <div class="cert-card reveal-up">
+                            <div class="cert-card__icon">
+                                <i class="fas fa-language"></i>
+                            </div>
+                            <div class="cert-card__content">
+                                <h4>Cambridge English Linguaskill — B2</h4>
+                                <p>Certified English proficiency level B2 (Upper-Intermediate)</p>
+                                <span class="cert-card__date">2024</span>
+                            </div>
+                        </div>
+
+                        <div class="cert-card reveal-up">
+                            <div class="cert-card__icon">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <div class="cert-card__content">
+                                <h4>Data Analysis with Excel</h4>
+                                <p>Comprehensive data analysis course covering pivot tables, advanced formulas, and data visualization</p>
+                                <span class="cert-card__date">2024</span>
+                            </div>
+                        </div>
+
+                        <div class="cert-card reveal-up">
+                            <div class="cert-card__icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="cert-card__content">
+                                <h4>Semana Magazine — National Recognition</h4>
+                                <p>Featured in Colombia's leading news magazine for outstanding academic achievement</p>
+                                <span class="cert-card__date">March 2023</span>
+                                <a href="https://www.semana.com/economia/macroeconomia/articulo/ir-mas-alla-el-secreto-del-exito-de-los-estudiantes-de-uno-de-los-mejores-colegios-del-pais/202300/" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer" 
+                                   class="cert-card__link">
+                                    View Article <i class="fas fa-external-link-alt"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 text-center">
-                        <div class="profile-image-container">
-                            <img src="images/angel.avif" 
-                                 alt="Angel David Ruiz Barbosa" 
-                                 class="profile-image img-fluid rounded-circle">
-                        </div>
-                    </div>
                 </div>
             </div>
-        </div>
-    </header>
+        </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-5 reveal">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h2 class="section-title mb-4">Sobre mí</h2>
-                    <p class="lead text-muted">
-                        Persona orientada a objetivos con sólidas habilidades de comunicación y trabajo en equipo. Actualmente estudio Ingeniería de Sistemas e Informática en la Universidad Nacional de Colombia. Me interesan el análisis de datos, el desarrollo de software y el aprendizaje continuo.
-            </div>
-        </div>
-    </section>
-
-    <!-- Education Section -->
-    <section id="education" class="py-5 bg-light reveal">
-        <div class="container">
-            <h2 class="section-title text-center mb-5">Educación</h2>
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <div class="education-timeline">
-                        <div class="education-item mb-4">
-                            <div class="card shadow-sm">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-start mb-2">
-                                        <h5 class="card-title mb-0">Universidad Nacional de Colombia</h5>
-                                        <span class="badge bg-primary">2023 - presente</span>
-                                    </div>
-                                    <p class="card-text text-muted">Ingeniería de Sistemas e Informática</p>
-                                </div>
+        <!-- ==================== RESUME ==================== -->
+        <section class="section section--alt resume" id="resume">
+            <div class="section__container">
+                <h2 class="section__title reveal-up">
+                    <span class="section__number">06.</span> Resume
+                </h2>
+                <div class="resume__content reveal-up">
+                    <div class="resume__card">
+                        <div class="resume__icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="resume__info">
+                            <h3>Download My CV</h3>
+                            <p>
+                                Get a detailed overview of my education, skills, projects, and experience 
+                                in a single document. Available as a PDF for easy viewing and printing.
+                            </p>
+                            <div class="resume__actions">
+                                <a href="Angel_David_Ruiz_CV.pdf" download class="btn btn--primary btn--large magnetic-btn">
+                                    <i class="fas fa-download"></i> Download PDF
+                                </a>
+                                <a href="Angel_David_Ruiz_CV.pdf" target="_blank" rel="noopener noreferrer" class="btn btn--outline magnetic-btn">
+                                    <i class="fas fa-eye"></i> View Online
+                                </a>
                             </div>
                         </div>
-                        
-                        <div class="education-item mb-4">
-                            <div class="card shadow-sm">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-start mb-2">
-                                        <h5 class="card-title mb-0">Curso de análisis de datos con Excel</h5>
-                                        <span class="badge bg-success">2024</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="education-item mb-4">
-                            <div class="card shadow-sm">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-start mb-2">
-                                        <h5 class="card-title mb-0">Certificado Cambridge English Linguaskill B2</h5>
-                                        <span class="badge bg-success">2024</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="education-item mb-4">
-                            <div class="card shadow-sm">
-                                <div class="card-body">
-                                    <h5 class="card-title mb-0">Liceo Campo David</h5>
-                                    <p class="card-text text-muted">Bachiller académico</p>
-                                </div>
+                    </div>
+                    <div class="resume__preview">
+                        <div class="resume__embed-wrapper">
+                            <iframe src="Angel_David_Ruiz_CV.pdf" 
+                                    title="Angel David Ruiz Barbosa - CV Preview" 
+                                    class="resume__embed"
+                                    loading="lazy">
+                            </iframe>
+                            <div class="resume__embed-fallback">
+                                <p>PDF preview not available in your browser.</p>
+                                <a href="Angel_David_Ruiz_CV.pdf" download class="btn btn--primary">
+                                    <i class="fas fa-download"></i> Download Instead
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="py-5 reveal">
-        <div class="container">
-            <h2 class="section-title text-center mb-5">Habilidades Técnicas</h2>
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <div class="row">
-                        <div class="col-md-6 mb-4">
-                            <h5 class="mb-3">Lenguajes de Programación</h5>
-                            <div class="skill-item">
-                                <span class="skill-name">Python</span>
-                                <div class="progress mb-2">
-                                    <div class="progress-bar" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
+        <!-- ==================== CONTACT ==================== -->
+        <section class="section contact" id="contact">
+            <div class="section__container">
+                <h2 class="section__title reveal-up">
+                    <span class="section__number">07.</span> Get In Touch
+                </h2>
+                <div class="contact__content reveal-up">
+                    <p class="contact__intro">
+                        I'm currently looking for new opportunities — whether it's an internship, 
+                        a junior position, or an exciting project to collaborate on. My inbox is always open. 
+                        Whether you have a question or just want to say hi, I'll do my best to get back to you!
+                    </p>
+
+                    <!-- Contact Form -->
+                    <form class="contact__form" id="contactForm" novalidate>
+                        <div class="form__row">
+                            <div class="form__group">
+                                <input type="text" id="formName" name="name" placeholder=" " required autocomplete="name">
+                                <label for="formName">Your Name</label>
+                                <div class="form__line"></div>
                             </div>
-                            <div class="skill-item">
-                                <span class="skill-name">JavaScript</span>
-                                <div class="progress mb-2">
-                                    <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">SQL</span>
-                                <div class="progress mb-2">
-                                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <h5 class="mb-3">Frameworks y Herramientas</h5>
-                            <div class="skill-item">
-                                <span class="skill-name">Django</span>
-                                <div class="progress mb-2">
-                                    <div class="progress-bar" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">Excel</span>
-                                <div class="progress mb-2">
-                                    <div class="progress-bar" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
+                            <div class="form__group">
+                                <input type="email" id="formEmail" name="email" placeholder=" " required autocomplete="email">
+                                <label for="formEmail">Your Email</label>
+                                <div class="form__line"></div>
                             </div>
                         </div>
+                        <div class="form__group">
+                            <input type="text" id="formSubject" name="subject" placeholder=" " autocomplete="off">
+                            <label for="formSubject">Subject (optional)</label>
+                            <div class="form__line"></div>
+                        </div>
+                        <div class="form__group">
+                            <textarea id="formMessage" name="message" rows="5" placeholder=" " required></textarea>
+                            <label for="formMessage">Your Message</label>
+                            <div class="form__line"></div>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--large btn--glow magnetic-btn" id="formSubmit">
+                            <span class="btn__text">Send Message</span>
+                            <span class="btn__loading" aria-hidden="true"><i class="fas fa-spinner fa-spin"></i></span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+
+                    <div class="contact__divider">
+                        <span>or reach me directly</span>
                     </div>
-                    <div class="soft-skills mt-4">
-                        <h5 class="mb-3">Habilidades Blandas</h5>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <span class="badge bg-secondary me-2 mb-2">Diseño de sistemas</span>
-                                <span class="badge bg-secondary me-2 mb-2">Trabajo en equipo</span>
-                                <span class="badge bg-secondary me-2 mb-2">Comunicación efectiva</span>
-                            </div>
+
+                    <div class="contact__alt">
+                        <div class="contact__links">
+                            <a href="mailto:angeldavidruiz2@gmail.com" class="contact__link" aria-label="Send email to personal address">
+                                <i class="fas fa-envelope"></i>
+                                <span>angeldavidruiz2@gmail.com</span>
+                            </a>
+                            <a href="mailto:aruizba@unal.edu.co" class="contact__link" aria-label="Send email to university address">
+                                <i class="fas fa-envelope"></i>
+                                <span>aruizba@unal.edu.co</span>
+                            </a>
+                            <a href="tel:+573028600551" class="contact__link" aria-label="Call phone number">
+                                <i class="fas fa-phone"></i>
+                                <span>+57 302 860 0551</span>
+                            </a>
+                            <a href="https://www.linkedin.com/in/angel-ruiz-96314a192/" target="_blank" rel="noopener noreferrer" class="contact__link" aria-label="View LinkedIn profile">
+                                <i class="fab fa-linkedin-in"></i>
+                                <span>LinkedIn Profile</span>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Languages Section -->
-    <section id="languages" class="py-5 bg-light reveal">
-        <div class="container">
-            <h2 class="section-title text-center mb-5">Idiomas</h2>
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div class="language-item d-flex justify-content-between align-items-center mb-3">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-flag me-3 text-primary"></i>
-                            <span class="fw-semibold">Español</span>
-                        </div>
-                        <span class="badge bg-success">Nativo</span>
-                    </div>
-                    <div class="language-item d-flex justify-content-between align-items-center mb-3">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-flag me-3 text-primary"></i>
-                            <span class="fw-semibold">Inglés</span>
-                        </div>
-                        <span class="badge bg-primary">B2 Certificado</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Achievements Section -->
-    <section id="achievements" class="py-5 reveal">
-        <div class="container">
-            <h2 class="section-title text-center mb-5">Reconocimientos</h2>
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <div class="achievement-item text-center">
-                        <div class="achievement-icon mb-3">
-                            <i class="fas fa-award text-warning fa-3x"></i>
-                        </div>
-                        <h5 class="achievement-title">Revista Semana</h5>
-                        <p class="achievement-description text-muted mb-3">
-                            Reconocimiento en revista "Semana"
-                        </p>
-                        <a href="https://www.semana.com/economia/macroeconomia/articulo/ir-mas-alla-el-secreto-del-exito-de-los-estudiantes-de-uno-de-los-mejores-colegios-del-pais/202300/" target="_blank" class="btn btn-outline-primary">
-                            <i class="fas fa-external-link-alt me-2"></i>Ver reconocimiento (25 de marzo, 2023)
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-5 bg-dark text-white reveal">
-        <div class="container">
-            <h2 class="section-title text-center mb-5">Contacto</h2>
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="contact-info">
-                        <div class="row">
-                            <div class="col-md-6 mb-4">
-                                <div class="contact-item d-flex align-items-center">
-                                    <i class="fas fa-envelope me-3 text-primary"></i>
-                                    <div>
-                                        <h6 class="mb-1">Email Personal</h6>
-                                        <a href="mailto:angeldavidruiz2@gmail.com" class="text-white-50">
-                                            angeldavidruiz2@gmail.com
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                <div class="contact-item d-flex align-items-center">
-                                    <i class="fas fa-envelope me-3 text-primary"></i>
-                                    <div>
-                                        <h6 class="mb-1">Email Institucional</h6>
-                                        <a href="mailto:aruizba@unal.edu.co" class="text-white-50">
-                                            aruizba@unal.edu.co
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                <div class="contact-item d-flex align-items-center">
-                                    <i class="fas fa-phone me-3 text-primary"></i>
-                                    <div>
-                                        <h6 class="mb-1">Teléfono</h6>
-                                        <a href="tel:+573028600551" class="text-white-50">
-                                            +57 302 860 0551
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                <div class="contact-item d-flex align-items-center">
-                                    <i class="fab fa-linkedin me-3 text-primary"></i>
-                                    <div>
-                                        <h6 class="mb-1">LinkedIn</h6>
-                                        <a href="https://www.linkedin.com/in/angel-ruiz-96314a192/" target="_blank" class="text-white-50">
-                                            angel-ruiz-96314a192
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                <div class="contact-item d-flex align-items-center">
-                                    <i class="fas fa-download me-3 text-primary"></i>
-                                    <div>
-                                        <h6 class="mb-1">Curriculum Vitae</h6>
-                                        <a href="#" class="btn btn-sm btn-outline-light" id="downloadCVFooter">
-                                            Descargar CV (PDF)
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="py-4 bg-black text-center text-white-50">
-        <div class="container">
-            <p class="mb-0">&copy; 2025 Angel David Ruiz Barbosa. Todos los derechos reservados.</p>
+    <footer class="footer">
+        <div class="footer__container">
+            <div class="footer__social">
+                <a href="https://github.com/AngelDavidRuizB" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/angel-ruiz-96314a192/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="mailto:angeldavidruiz2@gmail.com" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <p class="footer__credit">
+                Designed & Built by Angel David Ruiz Barbosa
+            </p>
+            <p class="footer__copyright">
+                &copy; 2026 — All rights reserved.
+            </p>
         </div>
     </footer>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Mobile Bottom Navigation -->
+    <nav class="bottom-nav" id="bottomNav" aria-label="Quick navigation">
+        <a href="#hero" class="bottom-nav__item" data-section="hero">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="#about" class="bottom-nav__item" data-section="about">
+            <i class="fas fa-user"></i>
+            <span>About</span>
+        </a>
+        <a href="#projects" class="bottom-nav__item" data-section="projects">
+            <i class="fas fa-code"></i>
+            <span>Projects</span>
+        </a>
+        <a href="#skills" class="bottom-nav__item" data-section="skills">
+            <i class="fas fa-cogs"></i>
+            <span>Skills</span>
+        </a>
+        <a href="#contact" class="bottom-nav__item" data-section="contact">
+            <i class="fas fa-envelope"></i>
+            <span>Contact</span>
+        </a>
+    </nav>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
     <script src="script.js"></script>
 </body>
 </html>
