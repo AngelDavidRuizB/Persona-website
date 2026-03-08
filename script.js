@@ -79,11 +79,11 @@
         if (!textEl) return;
 
         const phrases = [
-            'I build things with data & code.',
-            'AI & Machine Learning Enthusiast.',
-            'Full-Stack Developer.',
-            'Data Science Explorer.',
-            'Problem Solver & Creator.'
+            'Systems Engineering Student',
+            'Python Developer',
+            'Web Scraping Specialist',
+            'Workflow Automation Enthusiast',
+            'Junior Developer'
         ];
 
         let phraseIndex = 0;
