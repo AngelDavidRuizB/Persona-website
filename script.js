@@ -42,6 +42,8 @@
         initContactForm();
         initBottomNav();
         initMagneticButtons();
+        initThreeHero();
+        initOmniSearch();
     });
 
     // ==================== THEME TOGGLE ====================
@@ -65,6 +67,7 @@
             body.setAttribute('data-theme', next);
             localStorage.setItem('theme', next);
             updateIcon();
+            window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: next } }));
         });
 
         function updateIcon() {
@@ -79,10 +82,10 @@
         if (!textEl) return;
 
         const phrases = [
-            'Systems Engineering Student',
-            'Python Developer',
-            'Web Scraping Specialist',
-            'Workflow Automation Enthusiast',
+            'Systems Engineering @ UNAL',
+            'Python Backend Developer',
+            'Automated Scraping & Ingestion',
+            'Workflow Automation with n8n',
             'Junior Developer'
         ];
 
@@ -679,6 +682,286 @@
         });
     }
 
+    // ==================== THREE.JS 3D HERO VISUALS ====================
+    function initThreeHero() {
+        const container = document.getElementById('hero3dCanvas');
+        if (!container) return;
+
+        if (typeof THREE === 'undefined') {
+            window.addEventListener('load', initThreeHero, { once: true });
+            return;
+        }
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let scene, camera, renderer, particleSystem, linesMesh;
+        let positions, velocities = [];
+        let animationFrameId = null;
+        let isVisible = true;
+        const particleCount = window.innerWidth < 768 ? 35 : 65;
+        const maxDistance = 110;
+
+        // Theme colors
+        function getThemeColors() {
+            const isDark = document.body.getAttribute('data-theme') !== 'light';
+            return {
+                primary: isDark ? 0x64ffda : 0x0e7490,
+                secondary: isDark ? 0x7b61ff : 0x6d28d9,
+                lineAlpha: isDark ? 0.35 : 0.25
+            };
+        }
+
+        let themeColors = getThemeColors();
+
+        // Interaction state
+        const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+
+        function initScene() {
+            scene = new THREE.Scene();
+            const width = container.clientWidth || window.innerWidth;
+            const height = container.clientHeight || window.innerHeight;
+
+            camera = new THREE.PerspectiveCamera(60, width / height, 1, 1000);
+            camera.position.z = 260;
+
+            renderer = new THREE.WebGLRenderer({
+                alpha: true,
+                antialias: window.devicePixelRatio <= 1,
+                powerPreference: 'high-performance'
+            });
+            renderer.setSize(width, height);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.domElement.classList.add('hero-webgl-canvas');
+            container.appendChild(renderer.domElement);
+
+            buildParticles();
+
+            // Listeners
+            window.addEventListener('mousemove', onMouseMove, { passive: true });
+            window.addEventListener('resize', onResize, { passive: true });
+            window.addEventListener('themechange', onThemeChange);
+
+            // Intersection Observer to stop GPU rendering when scrolled away
+            const heroEl = document.getElementById('hero');
+            if (heroEl && 'IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    isVisible = entries[0].isIntersecting;
+                    if (isVisible && !animationFrameId && !prefersReducedMotion) {
+                        animate();
+                    }
+                }, { threshold: 0.05 });
+                observer.observe(heroEl);
+            }
+
+            if (prefersReducedMotion) {
+                renderer.render(scene, camera);
+            } else {
+                animate();
+            }
+        }
+
+        function buildParticles() {
+            const geometry = new THREE.BufferGeometry();
+            positions = new Float32Array(particleCount * 3);
+            velocities = [];
+
+            const bounds = { x: 300, y: 170, z: 120 };
+
+            for (let i = 0; i < particleCount; i++) {
+                positions[i * 3] = (Math.random() - 0.5) * bounds.x;
+                positions[i * 3 + 1] = (Math.random() - 0.5) * bounds.y;
+                positions[i * 3 + 2] = (Math.random() - 0.5) * bounds.z;
+
+                velocities.push({
+                    x: (Math.random() - 0.5) * 0.35,
+                    y: (Math.random() - 0.5) * 0.35,
+                    z: (Math.random() - 0.5) * 0.2
+                });
+            }
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+            const particleMaterial = new THREE.PointsMaterial({
+                color: themeColors.primary,
+                size: window.innerWidth < 768 ? 3 : 4,
+                transparent: true,
+                opacity: 0.85,
+                blending: THREE.AdditiveBlending
+            });
+
+            particleSystem = new THREE.Points(geometry, particleMaterial);
+            scene.add(particleSystem);
+
+            // Dynamic Connecting Lines
+            const maxLines = particleCount * particleCount;
+            const linePositions = new Float32Array(maxLines * 6);
+            const lineColors = new Float32Array(maxLines * 6);
+
+            const linesGeometry = new THREE.BufferGeometry();
+            linesGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+            linesGeometry.setAttribute('color', new THREE.BufferAttribute(lineColors, 3));
+
+            const lineMaterial = new THREE.LineBasicMaterial({
+                vertexColors: true,
+                transparent: true,
+                opacity: themeColors.lineAlpha,
+                blending: THREE.AdditiveBlending
+            });
+
+            linesMesh = new THREE.LineSegments(linesGeometry, lineMaterial);
+            scene.add(linesMesh);
+        }
+
+        function onMouseMove(e) {
+            mouse.targetX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouse.targetY = -(e.clientY / window.innerHeight) * 2 + 1;
+        }
+
+        function onResize() {
+            if (!renderer || !camera || !container) return;
+            const width = container.clientWidth || window.innerWidth;
+            const height = container.clientHeight || window.innerHeight;
+
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            if (prefersReducedMotion) {
+                renderer.render(scene, camera);
+            }
+        }
+
+        function onThemeChange() {
+            themeColors = getThemeColors();
+            if (particleSystem && particleSystem.material) {
+                particleSystem.material.color.setHex(themeColors.primary);
+            }
+            if (linesMesh && linesMesh.material) {
+                linesMesh.material.opacity = themeColors.lineAlpha;
+            }
+        }
+
+        function animate() {
+            if (!isVisible) {
+                animationFrameId = null;
+                return;
+            }
+
+            // Camera parallax smoothing
+            mouse.x += (mouse.targetX - mouse.x) * 0.04;
+            mouse.y += (mouse.targetY - mouse.y) * 0.04;
+            camera.position.x = mouse.x * 20;
+            camera.position.y = mouse.y * 20;
+            camera.lookAt(scene.position);
+
+            const posAttr = particleSystem.geometry.attributes.position;
+            const linePosAttr = linesMesh.geometry.attributes.position;
+            const lineColAttr = linesMesh.geometry.attributes.color;
+
+            let lineIdx = 0;
+            let colorIdx = 0;
+
+            for (let i = 0; i < particleCount; i++) {
+                positions[i * 3] += velocities[i].x;
+                positions[i * 3 + 1] += velocities[i].y;
+                positions[i * 3 + 2] += velocities[i].z;
+
+                if (Math.abs(positions[i * 3]) > 150) velocities[i].x *= -1;
+                if (Math.abs(positions[i * 3 + 1]) > 85) velocities[i].y *= -1;
+                if (Math.abs(positions[i * 3 + 2]) > 60) velocities[i].z *= -1;
+
+                for (let j = i + 1; j < particleCount; j++) {
+                    const dx = positions[i * 3] - positions[j * 3];
+                    const dy = positions[i * 3 + 1] - positions[j * 3 + 1];
+                    const dz = positions[i * 3 + 2] - positions[j * 3 + 2];
+                    const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+                    if (dist < maxDistance) {
+                        const alpha = (1.0 - dist / maxDistance) * themeColors.lineAlpha;
+
+                        linePosAttr.array[lineIdx++] = positions[i * 3];
+                        linePosAttr.array[lineIdx++] = positions[i * 3 + 1];
+                        linePosAttr.array[lineIdx++] = positions[i * 3 + 2];
+
+                        linePosAttr.array[lineIdx++] = positions[j * 3];
+                        linePosAttr.array[lineIdx++] = positions[j * 3 + 1];
+                        linePosAttr.array[lineIdx++] = positions[j * 3 + 2];
+
+                        // Colors
+                        lineColAttr.array[colorIdx++] = 0.39 * alpha;
+                        lineColAttr.array[colorIdx++] = 1.00 * alpha;
+                        lineColAttr.array[colorIdx++] = 0.85 * alpha;
+
+                        lineColAttr.array[colorIdx++] = 0.48 * alpha;
+                        lineColAttr.array[colorIdx++] = 0.38 * alpha;
+                        lineColAttr.array[colorIdx++] = 1.00 * alpha;
+                    }
+                }
+            }
+
+            posAttr.needsUpdate = true;
+            linePosAttr.needsUpdate = true;
+            lineColAttr.needsUpdate = true;
+            linesMesh.geometry.setDrawRange(0, lineIdx / 3);
+
+            renderer.render(scene, camera);
+            animationFrameId = requestAnimationFrame(animate);
+        }
+
+        try {
+            initScene();
+        } catch (err) {
+            console.warn('Three.js WebGL initialization skipped or unsupported:', err);
+        }
+    }
+
+    // ==================== OMNI SMART PROJECT SEARCH & FILTER ====================
+    function initOmniSearch() {
+        const searchInput = document.getElementById('omniSearchInput');
+        const filterChips = document.querySelectorAll('#filterChips .chip');
+        const cards = document.querySelectorAll('.project-card');
+
+        if (!cards.length) return;
+
+        let currentCategory = 'all';
+
+        function filterProjects() {
+            const query = (searchInput ? searchInput.value : '').toLowerCase().trim();
+
+            cards.forEach((card) => {
+                const title = (card.querySelector('.project-card__title') || {}).textContent || '';
+                const desc = (card.querySelector('.project-card__description') || {}).textContent || '';
+                const tags = (card.querySelector('.project-card__tags') || {}).textContent || '';
+                const category = card.getAttribute('data-category') || '';
+                const fullText = (title + ' ' + desc + ' ' + tags + ' ' + category).toLowerCase();
+
+                const matchesQuery = !query || fullText.includes(query);
+                const matchesCategory = currentCategory === 'all' || category.includes(currentCategory);
+
+                if (matchesQuery && matchesCategory) {
+                    card.classList.remove('filtered-out');
+                    card.classList.add('filtered-in');
+                } else {
+                    card.classList.add('filtered-out');
+                    card.classList.remove('filtered-in');
+                }
+            });
+        }
+
+        if (searchInput) {
+            searchInput.addEventListener('input', filterProjects);
+        }
+
+        filterChips.forEach((chip) => {
+            chip.addEventListener('click', () => {
+                filterChips.forEach((c) => c.classList.remove('active'));
+                chip.classList.add('active');
+                currentCategory = chip.getAttribute('data-filter') || 'all';
+                filterProjects();
+            });
+        });
+    }
+
     // ==================== TOAST NOTIFICATION ====================
     window.showToast = function (message, duration = 3000, type = '') {
         const toast = document.getElementById('toast');
@@ -698,3 +981,4 @@
     };
 
 })();
+

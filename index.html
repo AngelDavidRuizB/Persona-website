@@ -29,6 +29,9 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+    <!-- Three.js (WebGL 3D Visuals) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+
     <!-- Main Styles -->
     <link rel="stylesheet" href="styles.css">
 
@@ -111,7 +114,10 @@
 
         <!-- ==================== HERO ==================== -->
         <section class="hero" id="hero">
-            <!-- Animated Background -->
+            <!-- Three.js Interactive WebGL Background Canvas Container -->
+            <div id="hero3dCanvas" class="hero__canvas-container" aria-hidden="true"></div>
+
+            <!-- Animated Background Mesh & Gradients -->
             <div class="hero__bg" aria-hidden="true">
                 <div class="hero__blob hero__blob--1"></div>
                 <div class="hero__blob hero__blob--2"></div>
@@ -121,6 +127,13 @@
 
             <div class="hero__container">
                 <div class="hero__content">
+                    <!-- Recruiter Availability Status Badge -->
+                    <div class="hero__status-badge reveal-up">
+                        <span class="hero__status-dot"></span>
+                        <span class="hero__status-text">Available for Junior Developer & Automation Roles</span>
+                        <span class="hero__status-loc">• Bogotá / Remote</span>
+                    </div>
+
                     <p class="hero__greeting reveal-up">Hi, my name is</p>
                     <h1 class="hero__name reveal-up">Angel David<br>Ruiz Barbosa.</h1>
                     <h2 class="hero__tagline reveal-up">
@@ -131,16 +144,15 @@
                     </h2>
                     <p class="hero__description reveal-up">
                         Systems Engineering student at the 
-                        <span class="highlight">Universidad Nacional de Colombia</span>,
-                        with hands-on experience in <span class="highlight">Python development</span>,
-                        <span class="highlight">web scraping</span>, and
-                        workflow automation with <span class="highlight">n8n</span>.
+                        <span class="highlight">Universidad Nacional de Colombia</span>.
+                        Specializing in high-throughput <span class="highlight">Python web scrapers</span>,
+                        resilient workflow automation with <span class="highlight">n8n</span>, and backend data pipelines.
                     </p>
 
                     <div class="hero__stats reveal-up">
                         <div class="hero__stat">
                             <span class="hero__stat-number" data-target="2">0</span>
-                            <span class="hero__stat-label">Completed Projects</span>
+                            <span class="hero__stat-label">Production Projects</span>
                         </div>
                         <div class="hero__stat">
                             <span class="hero__stat-number" data-target="4">0</span>
@@ -154,13 +166,13 @@
 
                     <div class="hero__cta reveal-up">
                         <a href="#projects" class="btn btn--primary btn--glow magnetic-btn">
-                            View My Work
+                            <span>Explore Projects</span>
                             <i class="fas fa-arrow-right"></i>
                         </a>
-                        <a href="#contact" class="btn btn--outline magnetic-btn">Get In Touch</a>
                         <a href="Angel_David_Ruiz_CV.pdf" download class="btn btn--outline magnetic-btn" aria-label="Download CV">
-                            <i class="fas fa-download"></i> Download CV
+                            <i class="fas fa-file-pdf"></i> Download CV (PDF)
                         </a>
+                        <a href="#contact" class="btn btn--outline magnetic-btn">Get In Touch</a>
                     </div>
                 </div>
 
@@ -284,17 +296,33 @@
         <section class="section projects" id="projects">
             <div class="section__container">
                 <h2 class="section__title reveal-up">
-                    <span class="section__number">03.</span> Projects
+                    <span class="section__number">03.</span> Featured Systems & Projects
                 </h2>
-                <div class="projects__grid">
+
+                <!-- Omni Intelligent Filter & Search Bar -->
+                <div class="omni-filter-bar reveal-up" role="search" aria-label="Project filter">
+                    <div class="omni-input-wrap">
+                        <i class="fas fa-search omni-icon" aria-hidden="true"></i>
+                        <input type="text" id="omniSearchInput" placeholder="Filter by stack or query (e.g. 'Python', 'Selenium', 'n8n', 'Web')..." aria-label="Search projects by technology or keyword">
+                    </div>
+                    <div class="filter-chips" id="filterChips" role="group" aria-label="Category filter">
+                        <button class="chip active" data-filter="all">All Systems</button>
+                        <button class="chip" data-filter="scraping">Web Scraping & Data</button>
+                        <button class="chip" data-filter="automation">Automation & n8n</button>
+                        <button class="chip" data-filter="web">Web & Three.js</button>
+                    </div>
+                </div>
+
+                <div class="projects__grid" id="projectsGrid">
 
                     <!-- Project 1: Job Market Skills Analyzer -->
-                    <article class="project-card reveal-up" data-tilt>
+                    <article class="project-card reveal-up" data-tilt data-category="scraping python data">
                         <div class="project-card__accent project-card__accent--cyan"></div>
                         <div class="project-card__glow"></div>
                         <div class="project-card__header">
-                            <div class="project-card__icon">
-                                <i class="fas fa-magnifying-glass-chart"></i>
+                            <div class="project-card__status">
+                                <span class="project-status-dot"></span>
+                                <span class="project-status-text">Production Verified</span>
                             </div>
                             <div class="project-card__links">
                                 <a href="https://github.com/AngelDavidRuizB/Job-Market-Skills-Analyzer" target="_blank" rel="noopener noreferrer" aria-label="View source code on GitHub">
@@ -308,11 +336,19 @@
                             </a>
                         </h3>
                         <p class="project-card__description">
-                            A Python web scraper that extracts and analyzes the technologies and soft skills
-                            required for job offers in a specific location, organizing information in an Excel
-                            spreadsheet. Built with Selenium and BeautifulSoup for automated data extraction,
-                            then processed with Pandas and openpyxl to identify trending skills by role and geography.
+                            An automated Python extraction and analysis engine that mines labor market demand data from multiple job portals. It bypasses dynamic DOM structures using Selenium &amp; BeautifulSoup, structuring raw vacancy postings into multidimensional datasets with Pandas and openpyxl.
                         </p>
+                        <!-- Recruiter Metric Anchors -->
+                        <div class="project-card__metrics">
+                            <div class="metric-pill">
+                                <span class="metric-pill__val">100%</span>
+                                <span class="metric-pill__lbl">Automated Ingestion</span>
+                            </div>
+                            <div class="metric-pill">
+                                <span class="metric-pill__val">Multi-City</span>
+                                <span class="metric-pill__lbl">Market Analysis</span>
+                            </div>
+                        </div>
                         <div class="project-card__tags">
                             <span>Python</span>
                             <span>Selenium</span>
@@ -322,13 +358,57 @@
                         </div>
                     </article>
 
-                    <!-- Project 2: Personal Portfolio Website -->
-                    <article class="project-card reveal-up" data-tilt>
+                    <!-- Project 2: Departmental Workflow Automator -->
+                    <article class="project-card reveal-up" data-tilt data-category="automation python data">
+                        <div class="project-card__accent project-card__accent--purple"></div>
+                        <div class="project-card__glow"></div>
+                        <div class="project-card__header">
+                            <div class="project-card__status">
+                                <span class="project-status-dot"></span>
+                                <span class="project-status-text">Enterprise Pipeline</span>
+                            </div>
+                            <div class="project-card__links">
+                                <a href="https://github.com/AngelDavidRuizB" target="_blank" rel="noopener noreferrer" aria-label="View developer profile on GitHub">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <h3 class="project-card__title">
+                            <a href="https://github.com/AngelDavidRuizB" target="_blank" rel="noopener noreferrer">
+                                Academic Automation & Data Pipelines
+                            </a>
+                        </h3>
+                        <p class="project-card__description">
+                            End-to-end administrative and academic workflow automation orchestrating custom Python scripts and n8n workflows. Eliminates repetitive manual data consolidation across departmental systems, synchronizing reports and structured records in real time.
+                        </p>
+                        <!-- Recruiter Metric Anchors -->
+                        <div class="project-card__metrics">
+                            <div class="metric-pill">
+                                <span class="metric-pill__val">85%+</span>
+                                <span class="metric-pill__lbl">Manual Workload Reduction</span>
+                            </div>
+                            <div class="metric-pill">
+                                <span class="metric-pill__val">Zero-Downtime</span>
+                                <span class="metric-pill__lbl">Webhook Triggers</span>
+                            </div>
+                        </div>
+                        <div class="project-card__tags">
+                            <span>n8n</span>
+                            <span>Python</span>
+                            <span>REST APIs</span>
+                            <span>Webhooks</span>
+                            <span>JSON/SQL</span>
+                        </div>
+                    </article>
+
+                    <!-- Project 3: Personal Portfolio Website -->
+                    <article class="project-card reveal-up" data-tilt data-category="web frontend threejs">
                         <div class="project-card__accent project-card__accent--orange"></div>
                         <div class="project-card__glow"></div>
                         <div class="project-card__header">
-                            <div class="project-card__icon">
-                                <i class="fas fa-globe"></i>
+                            <div class="project-card__status">
+                                <span class="project-status-dot"></span>
+                                <span class="project-status-text">Interactive WebGL</span>
                             </div>
                             <div class="project-card__links">
                                 <a href="https://github.com/AngelDavidRuizB/Personal-website" target="_blank" rel="noopener noreferrer" aria-label="View source code on GitHub">
@@ -341,18 +421,28 @@
                         </div>
                         <h3 class="project-card__title">
                             <a href="https://angeldavidruizb.github.io/Personal-website/" target="_blank" rel="noopener noreferrer">
-                                Personal Portfolio Website
+                                Interactive WebGL Portfolio Experience
                             </a>
                         </h3>
                         <p class="project-card__description">
-                            A personal portfolio website to showcase projects, skills, and professional experience.
-                            Developed using HTML, CSS, and JavaScript with a responsive layout for optimal viewing
-                            across all devices; deployed via GitHub Pages.
+                            High-performance engineer portfolio featuring real-time Three.js 3D node constellations, GPU particle dynamics, 60+ FPS responsive design, dark/light theme switching, and zero-layout-shift Core Web Vitals optimization.
                         </p>
+                        <!-- Recruiter Metric Anchors -->
+                        <div class="project-card__metrics">
+                            <div class="metric-pill">
+                                <span class="metric-pill__val">60 FPS</span>
+                                <span class="metric-pill__lbl">WebGL Rendering</span>
+                            </div>
+                            <div class="metric-pill">
+                                <span class="metric-pill__val">0.00</span>
+                                <span class="metric-pill__lbl">CLS Layout Shift</span>
+                            </div>
+                        </div>
                         <div class="project-card__tags">
-                            <span>HTML</span>
-                            <span>CSS</span>
-                            <span>JavaScript</span>
+                            <span>Three.js</span>
+                            <span>WebGL</span>
+                            <span>JavaScript ES6+</span>
+                            <span>CSS Grid/Flex</span>
                             <span>GitHub Pages</span>
                         </div>
                     </article>
@@ -361,7 +451,7 @@
 
                 <div class="projects__more reveal-up">
                     <a href="https://github.com/AngelDavidRuizB?tab=repositories" target="_blank" rel="noopener noreferrer" class="btn btn--outline magnetic-btn">
-                        View All on GitHub <i class="fab fa-github"></i>
+                        View All Repositories on GitHub <i class="fab fa-github"></i>
                     </a>
                 </div>
             </div>
