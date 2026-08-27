@@ -1,11 +1,10 @@
 /**
- * Angel David Ruiz Barbosa — Portfolio Scripts
+ * Angel Ruiz — Portfolio Scripts
  * Enhanced with:
  * - Theme toggle (dark/light) with localStorage persistence
  * - Typing effect for hero tagline
  * - Custom cursor (desktop only)
  * - 3D tilt effect on project cards
- * - Skill bar animations on scroll
  * - Animated timeline reveal
  * - Contact form with mailto fallback
  * - Mobile bottom navigation
@@ -19,6 +18,7 @@
  * - Mobile nav toggle with auto-close
  * - Back-to-top button
  * - Toast notifications
+ * - Omni project search & filter
  */
 
 (function () {
@@ -82,11 +82,11 @@
         if (!textEl) return;
 
         const phrases = [
-            'Systems Engineering @ UNAL',
-            'Python Backend Developer',
-            'Automated Scraping & Ingestion',
-            'Workflow Automation with n8n',
-            'Junior Developer'
+            'Systems & Computing Engineering Student',
+            'Software & AI Engineer',
+            'Full-Stack Developer',
+            'AI Integrations & LLM Applications',
+            'Workflow Automation & Data Pipelines'
         ];
 
         let phraseIndex = 0;
@@ -234,7 +234,6 @@
                         const level = item.getAttribute('data-level');
                         const fill = item.querySelector('.skill-bar__fill');
                         if (fill && level) {
-                            // Small delay for visual effect
                             setTimeout(() => {
                                 fill.style.width = level + '%';
                                 fill.classList.add('animated');
@@ -301,7 +300,6 @@
             const formspreeEndpoint = form.getAttribute('action');
 
             if (formspreeEndpoint && !formspreeEndpoint.includes('placeholder')) {
-                // Use Formspree
                 submitBtn.classList.add('loading');
                 submitBtn.disabled = true;
 
@@ -326,7 +324,6 @@
                 submitBtn.classList.remove('loading');
                 submitBtn.disabled = false;
             } else {
-                // Fallback to mailto
                 showToast('Opening your email client...', 2000);
                 window.location.href = mailtoLink;
             }
@@ -336,7 +333,6 @@
             return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         }
 
-        // Remove error class on input
         form.querySelectorAll('input, textarea').forEach(input => {
             input.addEventListener('input', () => {
                 input.classList.remove('error');
@@ -386,7 +382,6 @@
         window.addEventListener('scroll', updateActiveBottomNav, { passive: true });
         updateActiveBottomNav();
 
-        // Smooth scroll on click
         navItems.forEach(item => {
             item.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -403,7 +398,6 @@
 
     // ==================== MAGNETIC BUTTONS ====================
     function initMagneticButtons() {
-        // Only on non-touch devices
         if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
 
         const magneticBtns = document.querySelectorAll('.magnetic-btn');
@@ -677,7 +671,7 @@
                     iframe.closest('.resume__embed-wrapper').classList.add('no-pdf');
                 }
             } catch (e) {
-                // Cross-origin — PDF loaded in browser plugin, all good
+                // Cross-origin PDF load
             }
         });
     }
@@ -700,7 +694,6 @@
         const particleCount = window.innerWidth < 768 ? 35 : 65;
         const maxDistance = 110;
 
-        // Theme colors
         function getThemeColors() {
             const isDark = document.body.getAttribute('data-theme') !== 'light';
             return {
@@ -711,8 +704,6 @@
         }
 
         let themeColors = getThemeColors();
-
-        // Interaction state
         const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
 
         function initScene() {
@@ -735,12 +726,10 @@
 
             buildParticles();
 
-            // Listeners
             window.addEventListener('mousemove', onMouseMove, { passive: true });
             window.addEventListener('resize', onResize, { passive: true });
             window.addEventListener('themechange', onThemeChange);
 
-            // Intersection Observer to stop GPU rendering when scrolled away
             const heroEl = document.getElementById('hero');
             if (heroEl && 'IntersectionObserver' in window) {
                 const observer = new IntersectionObserver((entries) => {
@@ -791,7 +780,6 @@
             particleSystem = new THREE.Points(geometry, particleMaterial);
             scene.add(particleSystem);
 
-            // Dynamic Connecting Lines
             const maxLines = particleCount * particleCount;
             const linePositions = new Float32Array(maxLines * 6);
             const lineColors = new Float32Array(maxLines * 6);
@@ -847,7 +835,6 @@
                 return;
             }
 
-            // Camera parallax smoothing
             mouse.x += (mouse.targetX - mouse.x) * 0.04;
             mouse.y += (mouse.targetY - mouse.y) * 0.04;
             camera.position.x = mouse.x * 20;
@@ -887,7 +874,6 @@
                         linePosAttr.array[lineIdx++] = positions[j * 3 + 1];
                         linePosAttr.array[lineIdx++] = positions[j * 3 + 2];
 
-                        // Colors
                         lineColAttr.array[colorIdx++] = 0.39 * alpha;
                         lineColAttr.array[colorIdx++] = 1.00 * alpha;
                         lineColAttr.array[colorIdx++] = 0.85 * alpha;
@@ -967,9 +953,7 @@
         const toast = document.getElementById('toast');
         if (!toast) return;
 
-        // Remove previous classes
         toast.className = 'toast';
-
         toast.textContent = message;
         if (type) toast.classList.add('toast--' + type);
         toast.classList.add('show');
@@ -981,4 +965,3 @@
     };
 
 })();
-
